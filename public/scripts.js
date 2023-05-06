@@ -25,8 +25,35 @@ function showHideShots() {
     function startOver () {
         document.getElementById('userinput').reset();
         showHideShots();
+        hideResults();
+        showHideRules(0);
     }
-    
+
+    function showResults() {
+        $('.results').show();
+        document.getElementById('userinput').hidden=true;
+        document.getElementById('play').hidden=true;
+        showHideRules(0);
+    }
+
+    function hideResults() {
+        $('.results').hide();
+        document.getElementById('userinput').hidden=false;
+        document.getElementById('play').hidden=false;
+    }
+
+    function showHideRules(a) {
+        if(a==1) {
+            $('.rules').show();
+            document.getElementById('showrules').hidden=true;
+            document.getElementById('hiderules').hidden=false;
+        } else {
+            $('.rules').hide();
+            document.getElementById('showrules').hidden=false;
+            document.getElementById('hiderules').hidden=true;
+        }
+    }
+
     async function playGame () {
         // Get which game is being played based on the value in the form
         let game = $('input[type=radio][name=game]:checked').val();
@@ -52,5 +79,19 @@ function showHideShots() {
         // Here you should include code that uses the DOM API or jQuery to 
         // manipulate another block of HTML in the interface to display the 
         // results in some way. 
-        document.getElementById()
+        let check = document.getElementById('opponent');
+        let words = ""
+        if (check.checked == true) {
+            words = `You: ${result.player}
+Your opponent: ${result.opponent}
+Result: ${result.result}
+            
+            `
+        } else {
+            words = `You: ${result.player}
+            
+            `
+        }
+        $('.results').text(words)
+        showResults()
     }
